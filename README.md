@@ -73,6 +73,32 @@ CREATE TABLE `database`.`employee` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
+##POSTGRES DATABASE QUERIES
 
+CREATE TYPE e_isrelocate AS ENUM
+    ('T', 'F', 'NA');
 
+CREATE TYPE e_status AS ENUM
+    ('T', 'F');
 
+CREATE TABLE employee
+(
+    empid integer NOT NULL DEFAULT nextval('employee_empid_seq'::regclass),
+    name character varying(100) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    status e_status NOT NULL DEFAULT 'F'::e_status,
+    tenure integer,
+    phone character(15) COLLATE pg_catalog."default" DEFAULT NULL::bpchar,
+    email character varying(52) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    joining_date date,
+    workloc character varying(52) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    currentloc character varying(52) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    homeloc character varying(52) COLLATE pg_catalog."default" DEFAULT NULL::character varying,
+    isrelocate e_isrelocate NOT NULL DEFAULT 'NA'::e_isrelocate,
+    roleid integer,
+    verticalid integer,
+    accountid integer,
+    CONSTRAINT employee_pkey PRIMARY KEY (empid)
+)
+WITH (
+    OIDS = FALSE
+)
